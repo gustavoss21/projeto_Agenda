@@ -13,11 +13,11 @@ from PyQt5.QtWidgets import QMainWindow, QListWidgetItem, QMessageBox, QApplicat
 from PyQt5 import QtWidgets, QtGui, QtCore
 import os
 
-from projeto_base.grafico.graico_window.utils import Mensagem
-from projeto_base.grafico.window_PY import design_atualizadata
-from projeto_base.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo, salvar_mudancas, apagar_tarefa
-from projeto_base.processa_arquivo.proc_arq import proc_arquivo
-from projeto_base.processamento_dados.ajusta_lista import ListaEditada
+from projeto_Agenda.grafico.graico_window.utils import Mensagem
+from projeto_Agenda.grafico.window_PY import design_atualizadata
+from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo, salvar_mudancas, apagar_tarefa
+from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
+from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
 
 arquivo = proc_arquivo().resultado('escreva.txt')
 

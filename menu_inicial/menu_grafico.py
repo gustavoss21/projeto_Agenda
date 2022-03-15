@@ -8,15 +8,15 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
 
 # from grafico.graico_window.adicionar import Adicionar
 # from grafico.graico_window.adicionar import Adicionar
-from projeto_base.grafico.graico_window.atualizar import Atualiza
-from projeto_base.grafico.graico_window.utils import arquivo
-from projeto_base.grafico.tarefa_agora.verificar_agora import agora
-from projeto_base.grafico.tarefa_agora.window_agora import ParaAgora
-from projeto_base.grafico.window_PY import desig_menu
-from projeto_base.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
-from projeto_base.processamento_dados.ajusta_lista import ListaEditada
+from projeto_Agenda.grafico.graico_window.atualizar import Atualiza
+from projeto_Agenda.grafico.graico_window.utils import arquivo
+from projeto_Agenda.grafico.tarefa_agora.verificar_agora import agora
+from projeto_Agenda.grafico.tarefa_agora.window_agora import ParaAgora
+from projeto_Agenda.grafico.window_PY import desig_menu
+from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
+from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
 
-from projeto_base.grafico.graico_window.adicionar import Adicionar
+from projeto_Agenda.grafico.graico_window.adicionar import Adicionar
 
 
 class Menu(QMainWindow, desig_menu.Ui_MainWindow):

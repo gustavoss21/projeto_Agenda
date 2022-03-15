@@ -2,8 +2,8 @@
 # from processa_arquivo.gerencia_arquivo import salvar_mudancas, abrir_lista_arquivo
 from datetime import datetime,timedelta
 
-from projeto_base.grafico.graico_window.utils import gera_id
-from projeto_base.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo, salvar_mudancas
+from projeto_Agenda.grafico.graico_window.utils import gera_id
+from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo, salvar_mudancas
 
 opcao = ['LEMBRETE RAPIDO', 'COMPROMISSO DO DIA', 'ADICIONAR COMPROMISSO', 'EDITAR COMPROMISSO', 'ENCERRAR PROGAMA']
 # from processa_arquivo.proc_arq import proc_arquivo

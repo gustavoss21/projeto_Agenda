@@ -5,8 +5,8 @@ from PyQt5.QtWidgets import QMainWindow, QDialogButtonBox, QMessageBox
 
 # from grafico.window_PY.desing_calendario import Ui_MainWindow
 # from processa_arquivo.proc_arq import proc_arquivo
-from projeto_base.grafico.window_PY.desing_calendario import Ui_MainWindow
-from projeto_base.processa_arquivo.proc_arq import proc_arquivo
+from projeto_Agenda.grafico.window_PY.desing_calendario import Ui_MainWindow
+from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
 
 arquivo = proc_arquivo().resultado('escreva.txt')
 

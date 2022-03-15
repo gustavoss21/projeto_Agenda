@@ -1,8 +1,8 @@
 from datetime import datetime,time
 # from processamento_dados.ajusta_lista import ListaEditada
 # from processa_arquivo.proc_arq import proc_arquivo
-from projeto_base.processa_arquivo.proc_arq import proc_arquivo
-from projeto_base.processamento_dados.ajusta_lista import ListaEditada
+from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
+from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
 
 arquivo = proc_arquivo().todas_tarefa('escreva.txt')
 

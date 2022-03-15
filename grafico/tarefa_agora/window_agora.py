@@ -6,7 +6,7 @@ from PyQt5 import sip
 # from grafico.window_PY import opcoes
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame
 
-from projeto_base.grafico.window_PY import opcoes
+from projeto_Agenda.grafico.window_PY import opcoes
 
 
 class ParaAgora(QMainWindow,opcoes.Ui_MainWindow):

@@ -9,10 +9,10 @@ import random
 # from grafico.window_PY.design_adicionar import Ui_mainWindow
 # from processamento_dados.ajusta_lista import adicionar_tarefa
 # from processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
-from projeto_base.grafico.graico_window.atualizar import arquivo
-from projeto_base.grafico.graico_window.utils import Calendario
-from projeto_base.grafico.window_PY.design_adicionar import Ui_mainWindow
-from projeto_base.processamento_dados.ajusta_lista import adicionar_tarefa
+from projeto_Agenda.grafico.graico_window.atualizar import arquivo
+from projeto_Agenda.grafico.graico_window.utils import Calendario
+from projeto_Agenda.grafico.window_PY.design_adicionar import Ui_mainWindow
+from projeto_Agenda.processamento_dados.ajusta_lista import adicionar_tarefa
 
 
 class Adicionar(QMainWindow, Ui_mainWindow):

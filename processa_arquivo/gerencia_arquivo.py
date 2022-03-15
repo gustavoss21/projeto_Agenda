@@ -4,7 +4,7 @@ import json
 
 #entra no arquivo(escreva.txt) e coloca todos os dados em uma lista
 # from processa_arquivo.proc_arq import proc_arquivo
-from projeto_base.processa_arquivo.proc_arq import proc_arquivo
+from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
 
 
 def abrir_lista_arquivo(arquivo):
