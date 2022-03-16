@@ -39,6 +39,8 @@ def agora():
       return nova_lista
 
 
+if __name__ == '__main__':
+   print(agora())
 
 
 

@@ -40,24 +40,19 @@ class Menu(QMainWindow, desig_menu.Ui_MainWindow):
             date = dicionario["date"]
             date = datetime.strptime(date, '%Y-%m-%d %H:%M')
             date = date.strftime('%H:%M')
-            strings = f'{dicionario["tarefa"]:{" "}<{self.formatStr(dicionario["tarefa"])}} {date}'
+            tarefa = f'{dicionario["tarefa"]}'
+            print(tarefa,'.....',date)
+            # strDate = f'{date}'
 
             if contador >= 1:
 
                 tamanho += 30
                 self.listWidget.setMinimumHeight(tamanho)
-            self.listWidget.addItem(str(strings))
-
-    def formatStr(self, str):
-        contador = len(str)
-        if contador < 7:
-            contador = 44
-        elif contador < 10:
-            contador = 43
-        else:
-            contador = 40
-
-        return contador
+                self.listWidget_2.setMinimumHeight(tamanho)
+                # self.frame_7.setMinimumHeight(tamanho+10)
+                self.frame_7.setMaximumHeight(tamanho+10)
+            self.listWidget.addItem(str(tarefa))
+            self.listWidget_2.addItem(str(date))
 
     def ParaAgora(self):
         dicio = agora()

@@ -1,10 +1,13 @@
+import sys
 import threading
 from datetime import datetime
 from time import sleep
+
+from projeto_Agenda.grafico.tarefa_agora.verificar_agora import agora
 from PyQt5.QtGui import QPixmap
 from PyQt5 import sip
 # from grafico.window_PY import opcoes
-from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QFrame, QApplication
 
 from projeto_Agenda.grafico.window_PY import opcoes
 
@@ -104,11 +107,6 @@ class ParaAgora(QMainWindow,opcoes.Ui_MainWindow):
     def exec_amostral(self):
 
         try:
-            # proximo = self.proximo
-            # self.tarefa = next(proximo)
-            nomes = []
-
-            # self.label_4.setText(self.tarefa[0])
             thred = threading.Thread(target=self.relogio)
             thred.start()
 
@@ -138,7 +136,13 @@ class ParaAgora(QMainWindow,opcoes.Ui_MainWindow):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-# app = QApplication(sys.argv)
-# agora = ParaAgora()
-# agora.show()
-# app.exec_()
+if __name__ == '__main__':
+
+    dicio = agora()
+    print(dicio)
+    if not dicio == []:
+
+        app = QApplication(sys.argv)
+        agora = ParaAgora(*dicio)
+        agora.show()
+        app.exec_()
