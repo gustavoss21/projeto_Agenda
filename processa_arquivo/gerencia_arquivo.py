@@ -4,10 +4,13 @@ import json
 
 #entra no arquivo(escreva.txt) e coloca todos os dados em uma lista
 # from processa_arquivo.proc_arq import proc_arquivo
+import pymysql
+
 from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
 
+arquivo = 'escreva.txt'
 
-def abrir_lista_arquivo(arquivo):
+def abrir_lista_arquivo():
 
     try:
 
@@ -58,14 +61,16 @@ def salvar_mudancas(arquivo, lista=(), dicionary=()):
 
 
 #apagar todos os dados requisitados
-def apagar_tarefa(arquivo, list, selecionado):
-
-    nova_lista = []
-    # print('lista:',list)
-    # print('selecionado,:',selecionado)
-
-    for c in list:
-        if not str(selecionado).upper() == str(c['dicionario']['tarefa']).upper():
-            nova_lista.append(c)
-    print(11111,'apagar tarefa')
-    salvar_mudancas(arquivo,lista=nova_lista)
+def apagar_tarefa(selecionado):
+    conexao = pymysql.connect(host='127.0.0.1', user='root', database='tarefa', password='991465393gs')
+    cursor = conexao.cursor()
+    cursor.execute('delete from tarefa WHERE id_tarefa=3')
+    # nova_lista = []
+    # # print('lista:',list)
+    # # print('selecionado,:',selecionado)
+    #
+    # for c in list:
+    #     if not str(selecionado).upper() == str(c['dicionario']['tarefa']).upper():
+    #         nova_lista.append(c)
+    # print(11111,'apagar tarefa')
+    # salvar_mudancas(arquivo,lista=nova_lista)

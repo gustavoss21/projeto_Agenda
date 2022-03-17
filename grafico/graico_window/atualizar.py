@@ -19,7 +19,7 @@ from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
 from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
 from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
 
-arquivo = proc_arquivo().resultado('escreva.txt')
+arquivo = proc_arquivo().resultado()
 
 class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
     def __init__(self,dados,aberto=False,parent=None,):
@@ -28,7 +28,7 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
 
         dados = [x['dicionario'] for x in dados]
         self.lista_mostrar = sorted(dados, key=lambda x: x['tarefa'])
-        self.lista_original = abrir_lista_arquivo(arquivo)
+        self.lista_original = abrir_lista_arquivo()
         self.lista = [x['dicionario'] for x in self.lista_original]
         self.lista = sorted(self.lista, key=lambda x: x['tarefa'])
 
@@ -243,7 +243,7 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
                 os.remove(arquivo)
                 self.close()
 
-            apagar_tarefa(arquivo, self.lista_original, self.lista_mostrar[self.indix]['tarefa'])
+            apagar_tarefa(self.lista_mostrar[self.indix]['tarefa'])
 
             del self.lista_mostrar[self.indix]
             if not self.aberto:

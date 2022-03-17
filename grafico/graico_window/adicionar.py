@@ -3,6 +3,7 @@ import threading
 from datetime import datetime, timedelta
 from time import sleep
 
+import pymysql
 from PyQt5.QtWidgets import QMainWindow, QDialogButtonBox, QMessageBox, QApplication
 import random
 # from grafico.graico_window.utils import Calendario, arquivo
@@ -48,20 +49,31 @@ class Adicionar(QMainWindow, Ui_mainWindow):
                                      QMessageBox.Ok, QMessageBox.Ok)
             else:
                 data = self.dateTimeEdit.text()
-                intervalo_check = self.checkBox.isChecked()
-                intervalo_opcao = self.comboBox.currentText()
+                intervalo_check = str(self.checkBox.isChecked()).lower()
+                intervalo_opcao = f"{self.comboBox.currentText()}"
                 intervalo_valor = self.spinBox.text()
+
 
 
                 if not data < self.data_agora:
 
-                    self.ops = adicionar_tarefa(arquivo, msg, data, intervalo_opcao, intervalo_valor, intervalo_check)
+                    conexao = pymysql.connect(host='127.0.0.1', user='root', database='tarefa', password='991465393gs')
+                    data = '2022-03-17 16:30:00'
+                    print(msg, data, intervalo_check,intervalo_opcao, intervalo_valor)
+                    cursor = conexao.cursor()
+                    if intervalo_check in 'false':
+                        cursor.execute(
+                            f'insert INTO tarefa values (default,"{msg}","{data}",{intervalo_check},null,null);')
+                    else:
+                        cursor.execute(
+                            f'insert INTO tarefa values (default,"{msg}","{data}",{intervalo_check},"{intervalo_opcao}",{intervalo_valor});')
+                    conexao.commit()
+                    cursor.close()
+                    conexao.close()
                     reply = QMessageBox.question(self, 'ADICIONAR MAIS', 'Adicionar outra tarefa ?',
                                                  QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
 
-                    print()
                     if reply == QMessageBox.Yes:
-                        print('salvou')
                         self.lineEdit.clear()
                         # self.btn_input
 

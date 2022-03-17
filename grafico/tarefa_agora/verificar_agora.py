@@ -1,3 +1,4 @@
+import os
 from datetime import datetime,time
 # from processamento_dados.ajusta_lista import ListaEditada
 # from processa_arquivo.proc_arq import proc_arquivo
@@ -24,14 +25,16 @@ def agora():
 
         agora_dat = datetime.now()
         agora_dat = agora_dat.time()
-
-        if date.hour - agora_dat.hour <= 1:
+        print(date.hour - agora_dat.hour)
+        if 0 <= date.hour - agora_dat.hour <= 1:
+            print(date.hour)
             if date.hour == agora_dat.hour:
                 print('aqui')
                 nova_lista.append((dicionario['tarefa'], dicionario['date']))
 
             else:
                 if date.minute < agora_dat.minute:
+                    print('aqui1')
                     nova_lista.append([dicionario['tarefa'], dicionario['date']])
                 else:
 

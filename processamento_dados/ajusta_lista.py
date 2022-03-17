@@ -16,8 +16,9 @@ opcao = ['LEMBRETE RAPIDO', 'COMPROMISSO DO DIA', 'ADICIONAR COMPROMISSO', 'EDIT
 
 
 class ListaEditada:# ops_2 mostra a lista de tarefas
-        def __init__(self,documento):
-            self.lista_original = abrir_lista_arquivo(documento)
+        def __init__(self):
+            self.lista_original = abrir_lista_arquivo()
+            print(self.lista_original)
             self.lista = [x['dicionario'] for x in self.lista_original]
 
 
@@ -55,7 +56,7 @@ class ListaEditada:# ops_2 mostra a lista de tarefas
 
                             data = data_tarefa.strftime('%Y-%m-%d %H:%M')
                             self.lista[contador]['date'] = data
-                            salvar_mudancas(documento,self.lista)
+                            salvar_mudancas(self.lista)
                             return
                         else:
                            self.lista_original[contador]['dicionario'] = dicionario
@@ -99,9 +100,9 @@ class ListaEditada:# ops_2 mostra a lista de tarefas
             return self.lista_nova
 
 
-def adicionar_tarefa(arquivo, msg,data,opcao='',valor='',check=False):
+def adicionar_tarefa(msg,data,opcao='',valor='',check=False):
 
-        lista = abrir_lista_arquivo(arquivo)
+        lista = abrir_lista_arquivo()
 
         dicionario = {}
         id = gera_id()
@@ -129,7 +130,7 @@ def adicionar_tarefa(arquivo, msg,data,opcao='',valor='',check=False):
 
         lista_dicionario = {'id': id, 'dicionario':dicionario}
         lista.append(lista_dicionario)
-        salvar_mudancas(arquivo,lista)
+        salvar_mudancas(lista)
 
 
 

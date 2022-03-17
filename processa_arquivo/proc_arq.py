@@ -1,17 +1,19 @@
 import json
 import os
 import os
-
-
-
+# from projeto_Agenda.processa_arquivo.gerencia_arquivo import
+arquivo = 'escreva.txt'
+caminho = os.path.abspath(arquivo)
+caminho = caminho.partition(arquivo)
+print(caminho)
 
 class proc_arquivo:
 
 
-    def resultado(self,arquivo):
+    def resultado(self):
 
         ficheiro = self.todas_tarefa(arquivo)
-        if not self.arquivo_existe(ficheiro):
+        if not self.arquivo_existe():
 
             self.criar_arquivo(ficheiro)
 
@@ -19,15 +21,15 @@ class proc_arquivo:
         return ficheiro
 
     def todas_tarefa(self,arquivo):
-        caminho = os.path.abspath('escreva.txt')
-        caminho = caminho.partition('escreva.txt')
+        # caminho = os.path.abspath(arquivo)
+        # caminho = caminho.partition(arquivo)
         # caminho = r'C:\Users\santo\PycharmProjects\meu_prejeto\processamento_dados'
-
+        print(caminho[0])
         ficheiro = os.path.join(caminho[0], arquivo)
 
         return ficheiro
 
-    def arquivo_existe(self,arquivo):
+    def arquivo_existe(self):
         try:
             if arquivo:
                 existe = open(arquivo, 'r+')
