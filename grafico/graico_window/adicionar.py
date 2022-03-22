@@ -2,15 +2,7 @@ import sys
 import threading
 from datetime import datetime, timedelta
 from time import sleep
-
-import pymysql
 from PyQt5.QtWidgets import QMainWindow, QDialogButtonBox, QMessageBox, QApplication
-import random
-# from grafico.graico_window.utils import Calendario, arquivo
-# from grafico.window_PY.design_adicionar import Ui_mainWindow
-# from processamento_dados.ajusta_lista import adicionar_tarefa
-# from processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
-from projeto_Agenda.grafico.graico_window.atualizar import arquivo
 from projeto_Agenda.grafico.graico_window.utils import Calendario
 from projeto_Agenda.grafico.window_PY.design_adicionar import Ui_mainWindow
 from projeto_Agenda.processamento_dados.ajusta_lista import adicionar_tarefa
@@ -35,11 +27,7 @@ class Adicionar(QMainWindow, Ui_mainWindow):
         self.threads = threading.Thread(target=self.habilited)
         self.threads.start()
 
-
-
-
     def btn_ok(self):
-            print(self.impedimento)
             if self.impedimento == True:
                 return
             msg = self.lineEdit.text()
@@ -52,24 +40,18 @@ class Adicionar(QMainWindow, Ui_mainWindow):
                 intervalo_opcao = f"{self.comboBox.currentText()}"
                 intervalo_valor = self.spinBox.text()
 
-
-
                 if not data < self.data_agora:
                     print(12345,data)
                     # data = datetime.strptime(data,'%Y-%m-%d %H:%M')
                     data = datetime.strptime(data,'%d/%m/%Y %H:%M')
                     print(data,"      2022-03-17 16:30:00")
 
-
-
                     adicionar_tarefa(msg,data,intervalo_check,intervalo_opcao, intervalo_valor)
-
                     reply = QMessageBox.question(self, 'ADICIONAR MAIS', 'Adicionar outra tarefa ?',
                                                  QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
 
                     if reply == QMessageBox.Yes:
                         self.lineEdit.clear()
-                        # self.btn_input
 
                     else:
                         self.cancelar()
@@ -77,8 +59,6 @@ class Adicionar(QMainWindow, Ui_mainWindow):
                 else:
                     QMessageBox.information(self, 'Data invalida', 'A data não pode ser inferior a atual !',
                                                  QMessageBox.Ok, QMessageBox.Ok)
-
-
 
     def habilited(self):
         sleep(1)
@@ -104,7 +84,6 @@ class Adicionar(QMainWindow, Ui_mainWindow):
 
             # print('habilite', self.calendario_window.ajusta_data())
 
-
     def set_data(self):
         data_agora = datetime.now() #+ timedelta(days=1)
         self.data_agora = data_agora.strftime('%d/%m/%Y %H')
@@ -116,15 +95,11 @@ class Adicionar(QMainWindow, Ui_mainWindow):
             print('simmm',data_agora,'..',data_calendario)
             self.dateTimeEdit.setDateTime(data_calendario)
 
-
     def calendario(self):
         self.calendario_window.show()
 
-
     def cancelar(self):
         self.setVisible(False)
-
-
 
 
 if __name__ == '__main__':
@@ -132,4 +107,3 @@ if __name__ == '__main__':
     opcao = Adicionar()
     opcao.show()
     app.exec_()
-print(__name__,'grafico_window/adicionar')
