@@ -42,7 +42,6 @@ class Adicionar(QMainWindow, Ui_mainWindow):
             print(self.impedimento)
             if self.impedimento == True:
                 return
-            print('ok',self.calendario_window.ajusta_data())
             msg = self.lineEdit.text()
             if msg == '':
                 QMessageBox.critical(self,'nome error', 'Não foi inserido o nome da tarefa.',
@@ -56,20 +55,15 @@ class Adicionar(QMainWindow, Ui_mainWindow):
 
 
                 if not data < self.data_agora:
+                    print(12345,data)
+                    # data = datetime.strptime(data,'%Y-%m-%d %H:%M')
+                    data = datetime.strptime(data,'%d/%m/%Y %H:%M')
+                    print(data,"      2022-03-17 16:30:00")
 
-                    conexao = pymysql.connect(host='127.0.0.1', user='root', database='tarefa', password='991465393gs')
-                    data = '2022-03-17 16:30:00'
-                    print(msg, data, intervalo_check,intervalo_opcao, intervalo_valor)
-                    cursor = conexao.cursor()
-                    if intervalo_check in 'false':
-                        cursor.execute(
-                            f'insert INTO tarefa values (default,"{msg}","{data}",{intervalo_check},null,null);')
-                    else:
-                        cursor.execute(
-                            f'insert INTO tarefa values (default,"{msg}","{data}",{intervalo_check},"{intervalo_opcao}",{intervalo_valor});')
-                    conexao.commit()
-                    cursor.close()
-                    conexao.close()
+
+
+                    adicionar_tarefa(msg,data,intervalo_check,intervalo_opcao, intervalo_valor)
+
                     reply = QMessageBox.question(self, 'ADICIONAR MAIS', 'Adicionar outra tarefa ?',
                                                  QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
 
@@ -129,6 +123,9 @@ class Adicionar(QMainWindow, Ui_mainWindow):
 
     def cancelar(self):
         self.setVisible(False)
+
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

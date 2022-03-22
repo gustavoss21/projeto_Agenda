@@ -1,21 +1,14 @@
 import sys
 import threading
-
 from datetime import datetime
-
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication
-
-# from grafico.graico_window.adicionar import Adicionar
-# from grafico.graico_window.adicionar import Adicionar
 from projeto_Agenda.grafico.graico_window.atualizar import Atualiza
-from projeto_Agenda.grafico.graico_window.utils import arquivo
 from projeto_Agenda.grafico.tarefa_agora.verificar_agora import agora
 from projeto_Agenda.grafico.tarefa_agora.window_agora import ParaAgora
 from projeto_Agenda.grafico.window_PY import desig_menu
-from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
+# from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo
 from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
-
 from projeto_Agenda.grafico.graico_window.adicionar import Adicionar
 
 
@@ -32,15 +25,15 @@ class Menu(QMainWindow, desig_menu.Ui_MainWindow):
         self.enabled()
 
     def showList(self):
-        self.dados = ListaEditada(arquivo)
+        self.dados = ListaEditada()
         self.dados = self.dados.tarefaAgora()
 
         tamanho = 30
-        for contador, dicionario in enumerate(self.dados[0]):
-            date = dicionario["date"]
-            date = datetime.strptime(date, '%Y-%m-%d %H:%M')
+        for contador, dicionario in enumerate(self.dados):
+            date = dicionario[2]
+            # date = datetime.strptime(date, '%Y-%m-%d %H:%M')
             date = date.strftime('%H:%M')
-            tarefa = f'{dicionario["tarefa"]}'
+            tarefa = f'{dicionario[1]}'
             print(tarefa,'.....',date)
             # strDate = f'{date}'
 
@@ -97,8 +90,9 @@ class Menu(QMainWindow, desig_menu.Ui_MainWindow):
         # widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def btn_maisOpcoes(self):
-
-        lista = abrir_lista_arquivo(arquivo)
+        lista = ListaEditada()
+        lista = lista.get_lista()
+        # lista = abrir_lista_arquivo(arquivo)
 
         self.atualiza = Atualiza(lista)
         if self.atualiza.isVisible():
@@ -124,7 +118,7 @@ class Menu(QMainWindow, desig_menu.Ui_MainWindow):
 
 try:
     # executa a janela atualizar dados
-    lista = ListaEditada(arquivo)
+    lista = ListaEditada()
     lista = lista.tarefaPassada()
 
     if not lista == []:

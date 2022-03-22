@@ -5,10 +5,8 @@ from datetime import datetime,time
 from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
 from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
 
-arquivo = proc_arquivo().todas_tarefa('escreva.txt')
-
-lista = ListaEditada(arquivo)
-lista = lista.tarefaAgora()[0]
+lista = ListaEditada()
+lista = lista.tarefaAgora()
 
 
 def agora():
@@ -16,8 +14,9 @@ def agora():
       nova_lista = []
 
       for dicionario in lista:
-        data = dicionario['date']
-        date = datetime.strptime(f'{data}', '%Y-%m-%d %H:%M')
+        data = dicionario[2]
+        print(data)
+        date = datetime.strptime(f'{data}', '%Y-%m-%d %H:%M:%S')
         date = time(date.hour,date.minute)
 
         if f'{date}' == '00:00:00':

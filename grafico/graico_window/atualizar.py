@@ -2,20 +2,12 @@ import sys
 import threading
 from datetime import datetime, timedelta
 from time import sleep
-
 from PyQt5.QtWidgets import QMainWindow, QListWidgetItem, QMessageBox, QApplication
-
-# from grafico.graico_window.utils import Mensagem
-# from grafico.window_PY import design_atualizadata
-# from processamento_dados.ajusta_lista import ListaEditada
-# from processa_arquivo.gerencia_arquivo import abrir_lista_arquivo, salvar_mudancas, apagar_tarefa
-# from processa_arquivo.proc_arq import proc_arquivo
 from PyQt5 import QtWidgets, QtGui, QtCore
 import os
-
 from projeto_Agenda.grafico.graico_window.utils import Mensagem
 from projeto_Agenda.grafico.window_PY import design_atualizadata
-from projeto_Agenda.processa_arquivo.gerencia_arquivo import abrir_lista_arquivo, salvar_mudancas, apagar_tarefa
+from projeto_Agenda.processa_arquivo.gerencia_arquivo import salvar_mudancas, apagar_tarefa
 from projeto_Agenda.processa_arquivo.proc_arq import proc_arquivo
 from projeto_Agenda.processamento_dados.ajusta_lista import ListaEditada
 
@@ -26,11 +18,11 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
         super(Atualiza, self).__init__(parent)
         super(Atualiza, self).setupUi(self)
 
-        dados = [x['dicionario'] for x in dados]
-        self.lista_mostrar = sorted(dados, key=lambda x: x['tarefa'])
-        self.lista_original = abrir_lista_arquivo()
-        self.lista = [x['dicionario'] for x in self.lista_original]
-        self.lista = sorted(self.lista, key=lambda x: x['tarefa'])
+        self.lista_mostrar = dados
+        # self.lista_mostrar = sorted(dados, key=lambda x: x[1])
+        # self.lista_original =
+        # self.lista = [x['dicionario'] for x in self.lista_original]
+        # self.lista = sorted(self.lista, key=lambda x: x['tarefa'])
 
         self.aberto = aberto
         if not aberto:
@@ -63,8 +55,7 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.listWidget.setFont(font)
-        self.listWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                      "")
+        self.listWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n""")
         self.listWidget.setFrameShape(QtWidgets.QFrame.Box)
         self.listWidget.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.listWidget.setLineWidth(2)
@@ -101,19 +92,19 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
                 self.close()
             else:
                 for contador, dicio in enumerate(self.lista_mostrar):
-                    if dicio['tarefa'] == dicionario['tarefa']:
+                    if dicio[1] == dicionario[1]:
                         self.indix = contador
 
-                self.teste.setText(self.lista_mostrar[self.indix]['tarefa'])
+                self.teste.setText(self.lista_mostrar[self.indix][1])
                 self.mostrar_data()
 
 
     def funcao_mostrar_lista(self):
         self.listWidget.clear()
         for lista in self.lista_mostrar:
-            self.listWidget.addItem(QListWidgetItem(lista['tarefa']))
+            self.listWidget.addItem(QListWidgetItem(lista[1]))
 
-        self.listWidget.sortItems()
+        # self.listWidget.sortItems()
 
 
     def sair(self):
@@ -135,11 +126,11 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
             self.pushButton_2.setStyleSheet('* {background-color: rgb(40, 101, 157);color:rgb(255, 255, 255);}')
         self.mostrar_data()
         self.checkBox.setEnabled(True)
+        print(self.lista_mostrar[self.indix])
 
+        checking = self.lista_mostrar[self.indix][3]
 
-        checking = self.lista_mostrar[self.indix]['checking']
-
-        if checking == True:
+        if checking == 1:
             self.checkBox.setChecked(True)
 
 
@@ -157,16 +148,16 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
 
         self.checkBox.setEnabled(True)
 
-        checking = self.lista_mostrar[self.indix]['checking']
-        if checking == True:
+        checking = self.lista_mostrar[self.indix][3]
+        if checking == 1:
             self.checkBox.setChecked(True)
         else:
             self.checkBox.setChecked(False)
 
 
     def mostrar_data(self):
-            data = self.lista_mostrar[self.indix]['date'][:]
-            data = datetime.strptime(data,'%Y-%m-%d %H:%M')
+            data = self.lista_mostrar[self.indix][2]
+            # data = datetime.strptime(data,'%Y-%m-%d %H:%M')
             data = data.strftime('%d/%m/%Y %H:%M')
 
             self.label_3.setText(data)
@@ -176,37 +167,42 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
 
 
     def salvar(self):
-
+            print('antes checking23')
             definida = self.dateTimeEdit.text()
             definida = datetime.strptime(definida,'%d/%m/%Y %H:%M')
 
             data_agora = datetime.now().strftime('%d/%m/%Y %H:%M')
 
             data_agora = datetime.strptime(data_agora,'%d/%m/%Y %M:%S')
+            print('antes chec')
             if definida < data_agora:
                 teste = Mensagem()
                 teste =  teste.menss('data inválida','A data definida não deve ser inferior a atual',QMessageBox.Warning,QMessageBox.Ok)
                 teste.exec_()
 
             else:
+                    print(definida,type(definida))
                     definida = definida.strftime('%Y-%m-%d %H:%M')
-                    self.lista_mostrar[self.indix]['date'] = definida
+                    definida = datetime.strptime(definida,'%Y-%m-%d %H:%M')
+                    lista = list(self.lista_mostrar[self.indix])
+                    print('lista',lista)
+                    lista[2] = definida
+                    # lista[self.indix][2] = definida
                     check = self.checkBox.isChecked()
+                    print('antes checking')
                     if check == True:
-                        self.lista_mostrar[self.indix]['checking'] = check
-                        self.lista_mostrar[self.indix]['intervalo_check'] = self.checkBox.isChecked()
-                        self.lista_mostrar[self.indix]['intervalo_opcao'] = self.comboBox.currentText()
-                        self.lista_mostrar[self.indix]['intervalo_valor'] = self.spinBox.text()
-
-                    for contador,dicio in enumerate(self.lista_original):
-
-                        for cont,dic in enumerate(self.lista_mostrar.copy()):
-
-                            if dic['tarefa'] == dicio['dicionario']['tarefa']:
-                                dicio['dicionario'] = dic
-
-                    salvar_mudancas(arquivo, self.lista_original)
-
+                        lista[3] = check
+                        lista[4] = self.comboBox.currentText()
+                        lista[5] = int(self.spinBox.text())
+                    else:
+                        lista[3] = False
+                        lista[4] = 'null'
+                        lista[5] = 'null'
+                    lista = tuple(lista)
+#tenta salvar (34, 'VAILA', datetime.datetime(2022, 3, 25, 12, 45), True, 'dias', 1)
+                    print('tenta salvar',lista)
+                    salvar_mudancas(lista,check)
+                    print('tenta salvar123')
                     if not self.aberto:
                         if self.lista_mostrar == []:
                                 self.setVisible(False)
@@ -234,16 +230,11 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
                 self.comboBox.setEnabled(False)
 
     def apagar(self):
-
-
-
-            self.lista_original = abrir_lista_arquivo(arquivo)
-            total_arquivo = len(self.lista_original)
-            if total_arquivo <= 1:
-                os.remove(arquivo)
-                self.close()
-
-            apagar_tarefa(self.lista_mostrar[self.indix]['tarefa'])
+            print(self.indix)
+            # self.lista_original = abrir_lista_arquivo(arquivo)
+            # total_arquivo = len(self.lista_original)
+            #editar esse depois
+            apagar_tarefa(self.lista_mostrar[self.indix][0])
 
             del self.lista_mostrar[self.indix]
             if not self.aberto:
@@ -254,7 +245,6 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
                         self.funcao_mostrar_lista()
 
             else:
-
                 if self.lista_mostrar == []:
                     self.close()
 
@@ -266,12 +256,8 @@ class Atualiza(QMainWindow,design_atualizadata.Ui_MainWindow):
 print(__name__,'122')
 
 if __name__ == '__main__':
-    lista = ListaEditada(arquivo)
-
+    lista = ListaEditada()
     lista = lista.tarefaPassada()
-    print('lista passada',lista)
-
-    # lista_nova = lista['lista_nova']
     if not lista == []:
 
         app = QApplication(sys.argv)
